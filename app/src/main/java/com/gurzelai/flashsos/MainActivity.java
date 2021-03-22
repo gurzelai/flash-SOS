@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -25,15 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
     boolean loop;
 
+    SeekBar seekBar;
+    TextView tvVelocidad;
+    double velocidad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pantallaCompleta();
         inicializar();
         FloatingActionButton btn = findViewById(R.id.boton);
         btn.setOnClickListener(v -> flash());
         loop = false;
+        velocidad = 1;
         SwitchMaterial sw = findViewById(R.id.loop);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -41,6 +46,27 @@ public class MainActivity extends AppCompatActivity {
                 loop = isChecked;
             }
         });
+        tvVelocidad = findViewById(R.id.velocidad);
+        seekBar = findViewById(R.id.seekbar);
+        seekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    //hace un llamado a la perilla cuando se arrastra
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar,
+                                                  int progress, boolean fromUser) {
+                        tvVelocidad.setText("X" + String.valueOf((double) progress / (double) 50));
+                        velocidad = (double) progress / 50;
+
+                    }
+
+                    //hace un llamado  cuando se toca la perilla
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    //hace un llamado  cuando se detiene la perilla
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+                });
     }
 
     private void flash() {
@@ -54,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         actualizarFlash();
                         try {
                             if (c.equals('-')) {
-                                Thread.sleep(1300);
+                                Thread.sleep((long) (1300 / velocidad));
                             }
                             if (c.equals('.')) {
-                                Thread.sleep(600, 500);
+                                Thread.sleep((long) (600 / velocidad), (int) (500 / velocidad));
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -123,4 +149,11 @@ public class MainActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pantallaCompleta();
+    }
+
 }
