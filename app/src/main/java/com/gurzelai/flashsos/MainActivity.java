@@ -26,14 +26,18 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.nio.FloatBuffer;
+
 public class MainActivity extends AppCompatActivity {
 
+    // ID BANNER PRUEBA ca-app-pub-3940256099942544/6300978111
     // ID BANNER ca-app-pub-3237439786100647/6160539854
 
     boolean flashEncendido = false;
     boolean flashAccesible = false;
     boolean vibradoActivado;
     boolean sonidoActivado;
+    boolean volMax;
     private CameraManager mCameraManager;
     private String mCameraId;
     Vibrator v;
@@ -79,6 +83,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 });
+        FloatingActionButton volUpd = findViewById(R.id.volUpd);
+        volUpd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(volMax){
+                    toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
+                    volUpd.setImageResource(R.drawable.ic_baseline_volume_down_24);
+                    volMax = false;
+                }
+                else{
+                    toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                    volUpd.setImageResource(R.drawable.ic_baseline_volume_up_24);
+                    volMax=true;
+                }
+
+            }
+        });
     }
 
     private void iniSwitchMaterial() {
@@ -101,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 sonidoActivado = isChecked;
-                if(isChecked) Toast.makeText(getApplicationContext(), "Volumen: MAX", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -174,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         comprobarAccesibilidad();
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        volMax = true;
     }
 
     private void comprobarAccesibilidad() {
