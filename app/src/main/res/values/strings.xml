@@ -2,4 +2,5 @@
     <string name="app_name">FlashSOS</string>
     <string name="todo">TODO</string>
     <string name="loop">LOOP</string>
+    <string name="vibracion">VIBRACIÓN</string>
 </resources>

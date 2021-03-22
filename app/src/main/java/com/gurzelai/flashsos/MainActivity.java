@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -28,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
     boolean flashEncendido = false;
     boolean flashAccesible = false;
+    boolean vibradoActivado;
     private CameraManager mCameraManager;
     private String mCameraId;
+    Vibrator v;
 
     boolean loop;
 
@@ -41,17 +44,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inicializarCamara();
+        inicializarCamaraYVibrador();
         inicializarBanner();
         FloatingActionButton btn = findViewById(R.id.boton);
         btn.setOnClickListener(v -> flash());
         loop = false;
+        vibradoActivado = false;
         velocidad = 1;
         SwitchMaterial sw = findViewById(R.id.loop);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 loop = isChecked;
+            }
+        });
+        SwitchMaterial swV = findViewById(R.id.vibracion);
+        swV.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vibradoActivado = isChecked;
             }
         });
         tvVelocidad = findViewById(R.id.velocidad);
@@ -123,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     mCameraManager.setTorchMode(mCameraId, true);
                     flashEncendido = true;
+                    if(vibradoActivado) v.vibrate((long) (400 / velocidad));
                 } catch (CameraAccessException e) {
                     e.printStackTrace();
                 }
@@ -132,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void inicializarCamara() {
+    private void inicializarCamaraYVibrador() {
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             mCameraId = mCameraManager.getCameraIdList()[0];
@@ -140,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         comprobarAccesibilidad();
+         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     private void comprobarAccesibilidad() {
