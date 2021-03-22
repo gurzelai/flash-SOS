@@ -11,8 +11,10 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private CameraManager mCameraManager;
     private String mCameraId;
 
+    boolean loop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
         inicializar();
         FloatingActionButton btn = findViewById(R.id.boton);
         btn.setOnClickListener(v -> flash());
+        loop = false;
+        SwitchMaterial sw = findViewById(R.id.loop);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                loop = isChecked;
+            }
+        });
     }
 
     private void flash() {
@@ -37,21 +48,23 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < morse.length(); i++) {
-                    Character c = morse.charAt(i);
-                    actualizarFlash();
-                    try {
-                        if (c.equals('-')) {
-                            Thread.sleep(1300);
+                do {
+                    for (int i = 0; i < morse.length(); i++) {
+                        Character c = morse.charAt(i);
+                        actualizarFlash();
+                        try {
+                            if (c.equals('-')) {
+                                Thread.sleep(1300);
+                            }
+                            if (c.equals('.')) {
+                                Thread.sleep(600, 500);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        if (c.equals('.')) {
-                            Thread.sleep(600, 500);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        actualizarFlash();
                     }
-                    actualizarFlash();
-                }
+                } while (loop);
             }
         }).start();
     }
@@ -83,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         }
         comprobarAccesibilidad();
     }
+
     private void comprobarAccesibilidad() {
         flashAccesible = getApplicationContext().getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
@@ -90,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             showNoFlashError();
         }
     }
+
     private void showNoFlashError() {
         AlertDialog alert = new AlertDialog.Builder(this)
                 .create();
@@ -102,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void pantallaCompleta(){
+    public void pantallaCompleta() {
         getSupportActionBar().hide();
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
