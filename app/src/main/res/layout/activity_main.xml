@@ -7,6 +7,19 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/sonido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sonido"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="90sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/adView" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -23,15 +36,14 @@
         android:id="@+id/boton"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginTop="40sp"
         android:backgroundTint="@color/red"
         android:clickable="true"
+        android:contentDescription="@string/todo"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toBottomOf="@+id/sonido" />
 
     <SeekBar
         android:id="@+id/seekbar"
@@ -40,8 +52,8 @@
         android:layout_marginHorizontal="50sp"
         android:layout_marginTop="10dp"
         android:background="#ccc"
-        android:progressDrawable="@drawable/gestion_seekbar"
         android:progress="50"
+        android:progressDrawable="@drawable/gestion_seekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/velocidad" />
@@ -59,11 +71,11 @@
             android:id="@+id/loop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8sp"
             android:text="@string/loop"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:textStyle="bold|italic"
-            android:layout_marginEnd="8sp"/>
+            android:textStyle="bold|italic" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/vibracion"
@@ -96,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
-        android:text="50%"
+        android:text="X1"
         android:textColor="#FFFFFF"
         android:textSize="23sp"
         android:textStyle="bold"
@@ -109,19 +121,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="55sp"
         android:clickable="true"
         app:backgroundTint="@color/red"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adView"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="16dp"
         android:text="info"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
         app:layout_constraintStart_toStartOf="@+id/floatingActionButton"

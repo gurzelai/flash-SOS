@@ -8,12 +8,15 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     boolean flashEncendido = false;
     boolean flashAccesible = false;
     boolean vibradoActivado;
+    boolean sonidoActivado;
     private CameraManager mCameraManager;
     private String mCameraId;
     Vibrator v;
+    ToneGenerator toneG;
 
     boolean loop;
 
@@ -50,21 +55,9 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(v -> flash());
         loop = false;
         vibradoActivado = false;
+        sonidoActivado = false;
         velocidad = 1;
-        SwitchMaterial sw = findViewById(R.id.loop);
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                loop = isChecked;
-            }
-        });
-        SwitchMaterial swV = findViewById(R.id.vibracion);
-        swV.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vibradoActivado = isChecked;
-            }
-        });
+        iniSwitchMaterial();
         tvVelocidad = findViewById(R.id.velocidad);
         seekBar = findViewById(R.id.seekbar);
         seekBar.setOnSeekBarChangeListener(
@@ -86,6 +79,31 @@ public class MainActivity extends AppCompatActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 });
+    }
+
+    private void iniSwitchMaterial() {
+        SwitchMaterial sw = findViewById(R.id.loop);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                loop = isChecked;
+            }
+        });
+        SwitchMaterial swV = findViewById(R.id.vibracion);
+        swV.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vibradoActivado = isChecked;
+            }
+        });
+        SwitchMaterial swS = findViewById(R.id.sonido);
+        swS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sonidoActivado = isChecked;
+                if(isChecked) Toast.makeText(getApplicationContext(), "Volumen: MAX", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void inicializarBanner() {
@@ -134,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     mCameraManager.setTorchMode(mCameraId, true);
                     flashEncendido = true;
-                    if(vibradoActivado) v.vibrate((long) (400 / velocidad));
+                    if (vibradoActivado) v.vibrate((long) (400 / velocidad));
+                    if (sonidoActivado)
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, (int) (70 / velocidad));
                 } catch (CameraAccessException e) {
                     e.printStackTrace();
                 }
@@ -152,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         comprobarAccesibilidad();
-         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
     }
 
     private void comprobarAccesibilidad() {
