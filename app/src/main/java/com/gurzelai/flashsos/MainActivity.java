@@ -14,10 +14,17 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
+
+    // ID BANNER ca-app-pub-3237439786100647/6160539854
 
     boolean flashEncendido = false;
     boolean flashAccesible = false;
@@ -34,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inicializar();
+        inicializarCamara();
+        inicializarBanner();
         FloatingActionButton btn = findViewById(R.id.boton);
         btn.setOnClickListener(v -> flash());
         loop = false;
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar,
                                                   int progress, boolean fromUser) {
-                        tvVelocidad.setText("X" + String.valueOf((double) progress / (double) 50));
+                        tvVelocidad.setText("X" + (double) progress / (double) 50);
                         velocidad = (double) progress / 50;
 
                     }
@@ -67,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 });
+    }
+
+    private void inicializarBanner() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void flash() {
@@ -83,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                 Thread.sleep((long) (1300 / velocidad));
                             }
                             if (c.equals('.')) {
-                                Thread.sleep((long) (600 / velocidad), (int) (500 / velocidad));
+                                Thread.sleep((long) (600 / velocidad), (int) (600 / velocidad));
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -113,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void inicializar() {
+    private void inicializarCamara() {
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             mCameraId = mCameraManager.getCameraIdList()[0];
