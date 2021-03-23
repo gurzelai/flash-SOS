@@ -12,10 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlashSOS">
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3237439786100647~1099784865" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

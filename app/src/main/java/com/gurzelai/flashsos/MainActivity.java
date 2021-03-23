@@ -3,6 +3,7 @@ package com.gurzelai.flashsos;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -18,20 +19,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.nio.FloatBuffer;
 
 public class MainActivity extends AppCompatActivity {
-
-    // ID BANNER PRUEBA ca-app-pub-3940256099942544/6300978111
-    // ID BANNER ca-app-pub-3237439786100647/6160539854
 
     boolean flashEncendido = false;
     boolean flashAccesible = false;
@@ -54,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inicializarCamaraYVibrador();
-        inicializarBanner();
         FloatingActionButton btn = findViewById(R.id.boton);
         btn.setOnClickListener(v -> flash());
+        FloatingActionButton btnTorchOn = findViewById(R.id.torchON);
+        btnTorchOn.setOnClickListener(v -> actualizarFlash());
         loop = false;
         vibradoActivado = false;
         sonidoActivado = false;
@@ -126,18 +120,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void inicializarBanner() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
     private void flash() {
+        if(flashEncendido) actualizarFlash();
         String morse = "...---...";
         new Thread(new Runnable() {
             @Override
