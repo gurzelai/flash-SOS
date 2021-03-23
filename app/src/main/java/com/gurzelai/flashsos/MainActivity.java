@@ -42,13 +42,15 @@ public class MainActivity extends AppCompatActivity {
     TextView tvVelocidad;
     double velocidad;
 
+    FloatingActionButton botonPrincipal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inicializarCamaraYVibrador();
-        FloatingActionButton btn = findViewById(R.id.boton);
-        btn.setOnClickListener(v -> flash());
+        botonPrincipal = findViewById(R.id.boton);
+        botonPrincipal.setOnClickListener(v -> flash());
         FloatingActionButton btnTorchOn = findViewById(R.id.torchON);
         btnTorchOn.setOnClickListener(v -> actualizarFlash());
         loop = false;
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                botonPrincipal.setClickable(false);
                 do {
                     for (int i = 0; i < morse.length(); i++) {
                         Character c = morse.charAt(i);
@@ -143,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         actualizarFlash();
                     }
                 } while (loop);
+                botonPrincipal.setClickable(true);
             }
         }).start();
     }
