@@ -5,4 +5,6 @@
     <string name="sonido">SOINUA</string>
     <string name="vibracion">BIBRAZIOA</string>
     <string name="app_name">Linterna SOS</string>
+    <string name="mensaje_alerta">Ezin da linterna zabaldu</string>
+    <string name="titulo_alerta" translatable="false">Oops...</string>
 </resources>

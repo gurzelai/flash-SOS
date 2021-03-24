@@ -213,10 +213,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNoFlashError() {
-        AlertDialog alert = new AlertDialog.Builder(this)
-                .create();
-        alert.setTitle("Oops!");
-        alert.setMessage("No se puede acceder al flash...");
+        AlertDialog.Builder alertB = new AlertDialog.Builder(this);
+        alertB.setMessage(R.string.mensaje_alerta).setTitle(R.string.titulo_alerta);
+        AlertDialog alert = alertB.create();
         alert.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
             }

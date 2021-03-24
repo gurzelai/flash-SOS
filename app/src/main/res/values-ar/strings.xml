@@ -5,4 +5,6 @@
     <string name="vibracion">اهتزاز</string>
     <string name="sonido">يبدو</string>
     <string name="app_name">مصباح يدوي SOS</string>
+    <string name="mensaje_alerta">"لا يمكن الوصول إلى المصباح اليدوي "</string>
+    <string name="titulo_alerta" translatable="false">خطأ</string>
 </resources>

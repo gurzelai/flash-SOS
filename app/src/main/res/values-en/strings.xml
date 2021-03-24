@@ -5,4 +5,6 @@
     <string name="vibracion">VIBRATION</string>
     <string name="sonido">SOUND</string>
     <string name="app_name">SOS flashlight</string>
+    <string name="mensaje_alerta">The flashlight cannot be accessed ...</string>
+    <string name="titulo_alerta" translatable="false">Oops...</string>
 </resources>

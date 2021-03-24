@@ -5,4 +5,6 @@
     <string name="sonido">ध्वनि</string>
     <string name="loop">लूप</string>
     <string name="app_name">एसओएस टॉर्च</string>
+    <string name="mensaje_alerta">"टॉर्च तक पहुँचा नहीं जा सकता "</string>
+    <string name="titulo_alerta" translatable="false">" त्रुटि"</string>
 </resources>

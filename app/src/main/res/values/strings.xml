@@ -5,4 +5,6 @@
     <string name="vibracion">VIBRACIÓN</string>
     <string name="sonido">SONIDO</string>
     <string name="sos" translatable="false">SOS</string>
+    <string name="mensaje_alerta">No se puede acceder a la linterna…</string>
+    <string name="titulo_alerta">Oops…</string>
 </resources>
