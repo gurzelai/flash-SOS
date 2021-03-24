@@ -4,4 +4,5 @@
     <string name="loop">LOOP</string>
     <string name="vibracion">VIBRATION</string>
     <string name="sonido">SOUND</string>
+    <string name="app_name">SOS flashlight</string>
 </resources>

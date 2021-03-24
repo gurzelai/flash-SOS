@@ -4,5 +4,5 @@
     <string name="loop">BUCLE</string>
     <string name="vibracion">VIBRACIÓN</string>
     <string name="sonido">SONIDO</string>
-    <string name="sos">SOS</string>
+    <string name="sos" translatable="false">SOS</string>
 </resources>

@@ -4,4 +4,5 @@
     <string name="loop">CICLO</string>
     <string name="vibracion">" VIBRAÇÃO"</string>
     <string name="sonido">SOM</string>
+    <string name="app_name">Lanterna SOS</string>
 </resources>

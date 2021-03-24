@@ -4,4 +4,5 @@
     <string name="loop">BEGIZTA</string>
     <string name="sonido">SOINUA</string>
     <string name="vibracion">BIBRAZIOA</string>
+    <string name="app_name">Linterna SOS</string>
 </resources>
