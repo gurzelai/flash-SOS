@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sonido"
-        android:layout_marginTop="55sp"
+        android:layout_marginTop="105sp"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold|italic"
@@ -22,9 +22,9 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/boton"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="40sp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="35sp"
         android:backgroundTint="@color/red"
         android:clickable="true"
         android:contentDescription="@string/todo"
@@ -127,8 +127,7 @@
             android:id="@+id/torchON"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="16dp"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="10sp"
             android:clickable="true"
             android:src="@drawable/ic_baseline_highlight_24"
             app:backgroundTint="@color/red" />
