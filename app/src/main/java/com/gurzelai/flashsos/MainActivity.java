@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void banner() {
-        AdView mAdView = findViewById(R.id.adView);
+       /* AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
     }
 
     private void iniSwitchMaterial() {
@@ -171,23 +171,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void actualizarFlash() {
-        try {
-            if (flashEncendido) {
-                mCameraManager.setTorchMode(mCameraId, false);
-                flashEncendido = false;
-            } else {
-                try {
-                    mCameraManager.setTorchMode(mCameraId, true);
-                    flashEncendido = true;
-                    if (vibradoActivado) v.vibrate((long) (400 / velocidad));
-                    if (sonidoActivado)
-                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, (int) (70 / velocidad));
-                } catch (CameraAccessException e) {
-                    e.printStackTrace();
+        if (flashAccesible) {
+            try {
+                if (flashEncendido) {
+                    mCameraManager.setTorchMode(mCameraId, false);
+                    flashEncendido = false;
+                } else {
+                    try {
+                        mCameraManager.setTorchMode(mCameraId, true);
+                        flashEncendido = true;
+                        if (vibradoActivado) v.vibrate((long) (400 / velocidad));
+                        if (sonidoActivado)
+                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, (int) (70 / velocidad));
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
             }
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
         }
     }
 

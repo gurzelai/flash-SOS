@@ -7,18 +7,6 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/sonido"
         android:layout_width="wrap_content"
@@ -95,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="16dp"
+        android:layout_marginBottom="20sp"
         android:text="@string/sos"
         android:textColor="@color/white"
         android:textSize="120sp"
@@ -145,5 +134,16 @@
             app:backgroundTint="@color/red" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:elevation="16sp"
+        android:layout_marginTop="0sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/iconoflash" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
