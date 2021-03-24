@@ -3,7 +3,6 @@ package com.gurzelai.flashsos;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -17,12 +16,14 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-
-import java.nio.FloatBuffer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         botonPrincipal.setOnClickListener(v -> flash());
         FloatingActionButton btnTorchOn = findViewById(R.id.torchON);
         btnTorchOn.setOnClickListener(v -> actualizarFlash());
+        ads();
         loop = false;
         vibradoActivado = false;
         sonidoActivado = false;
@@ -83,19 +85,33 @@ public class MainActivity extends AppCompatActivity {
         volUpd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(volMax){
+                if (volMax) {
                     toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
                     volUpd.setImageResource(R.drawable.ic_baseline_volume_down_24);
                     volMax = false;
-                }
-                else{
+                } else {
                     toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
                     volUpd.setImageResource(R.drawable.ic_baseline_volume_up_24);
-                    volMax=true;
+                    volMax = true;
                 }
 
             }
         });
+    }
+
+    private void ads() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        banner();
+    }
+
+    private void banner() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void iniSwitchMaterial() {
@@ -123,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flash() {
-        if(flashEncendido) actualizarFlash();
+        if (flashEncendido) actualizarFlash();
         String morse = "...---...";
         new Thread(new Runnable() {
             @Override
