@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         inicializarCamaraYVibrador();
         botonPrincipal = findViewById(R.id.boton);
-        botonPrincipal.setOnClickListener(v -> flash());
+        botonPrincipal.setOnClickListener((flashAccesible)? v -> flash():null);
         FloatingActionButton btnTorchOn = findViewById(R.id.torchON);
-        btnTorchOn.setOnClickListener(v -> actualizarFlash());
+        btnTorchOn.setOnClickListener((flashAccesible)? v -> actualizarFlash():null);
         ads();
         loop = false;
         vibradoActivado = false;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flash() {
-        if (flashAccesible) {
+
             if (flashEncendido) actualizarFlash();
             String morse = "...---...";
             new Thread(new Runnable() {
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     botonPrincipal.setClickable(true);
                 }
             }).start();
-        }
+
     }
 
     private void actualizarFlash() {
