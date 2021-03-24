@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo">TODO</string>
+    <string name="loop">襻</string>
+    <string name="vibracion">VIBRACIÓN</string>
+    <string name="sonido">声音</string>
+    <string name="sos">" 紧急求救"</string>
+</resources>

@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">FlashSOS</string>
+    <string name="app_name">Linterna SOS</string>
     <string name="todo">TODO</string>
-    <string name="loop">LOOP</string>
+    <string name="loop">BUCLE</string>
     <string name="vibracion">VIBRACIÓN</string>
     <string name="sonido">SONIDO</string>
+    <string name="sos">SOS</string>
 </resources>

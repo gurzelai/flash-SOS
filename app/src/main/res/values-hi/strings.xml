@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo">TODO</string>
+    <string name="vibracion">" कंपन"</string>
+    <string name="sonido">ध्वनि</string>
+    <string name="loop">लूप</string>
+    <string name="sos">मुसीबत का इशारा</string>
+</resources>

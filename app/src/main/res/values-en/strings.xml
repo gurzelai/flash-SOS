@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo">TODO</string>
+    <string name="loop">LOOP</string>
+    <string name="vibracion">VIBRATION</string>
+    <string name="sonido">SOUND</string>
+</resources>

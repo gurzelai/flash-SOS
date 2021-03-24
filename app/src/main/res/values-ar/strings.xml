@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo">TODO</string>
+    <string name="loop">عقدة</string>
+    <string name="vibracion">اهتزاز</string>
+    <string name="sonido">يبدو</string>
+</resources>

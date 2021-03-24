@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="16dp"
-        android:text="SOS"
+        android:text="@string/sos"
         android:textColor="@color/white"
         android:textSize="120sp"
         android:textStyle="bold"
