@@ -142,55 +142,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flash() {
-        if (flashEncendido) actualizarFlash();
-        String morse = "...---...";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                botonPrincipal.setClickable(false);
-                do {
-                    for (int i = 0; i < morse.length(); i++) {
-                        Character c = morse.charAt(i);
-                        actualizarFlash();
-                        try {
-                            if (c.equals('-')) {
-                                Thread.sleep((long) (1300 / velocidad));
+        if (flashAccesible) {
+            if (flashEncendido) actualizarFlash();
+            String morse = "...---...";
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    botonPrincipal.setClickable(false);
+                    do {
+                        for (int i = 0; i < morse.length(); i++) {
+                            Character c = morse.charAt(i);
+                            actualizarFlash();
+                            try {
+                                if (c.equals('-')) {
+                                    Thread.sleep((long) (1300 / velocidad));
+                                }
+                                if (c.equals('.')) {
+                                    Thread.sleep((long) (600 / velocidad), (int) (600 / velocidad));
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
-                            if (c.equals('.')) {
-                                Thread.sleep((long) (600 / velocidad), (int) (600 / velocidad));
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            actualizarFlash();
                         }
-                        actualizarFlash();
-                    }
-                } while (loop);
-                botonPrincipal.setClickable(true);
-            }
-        }).start();
+                    } while (loop);
+                    botonPrincipal.setClickable(true);
+                }
+            }).start();
+        }
     }
 
     private void actualizarFlash() {
-        if (flashAccesible) {
-            try {
-                if (flashEncendido) {
-                    mCameraManager.setTorchMode(mCameraId, false);
-                    flashEncendido = false;
-                } else {
-                    try {
-                        mCameraManager.setTorchMode(mCameraId, true);
-                        flashEncendido = true;
-                        if (vibradoActivado) v.vibrate((long) (400 / velocidad));
-                        if (sonidoActivado)
-                            toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, (int) (70 / velocidad));
-                    } catch (CameraAccessException e) {
-                        e.printStackTrace();
-                    }
+
+        try {
+            if (flashEncendido) {
+                mCameraManager.setTorchMode(mCameraId, false);
+                flashEncendido = false;
+            } else {
+                try {
+                    mCameraManager.setTorchMode(mCameraId, true);
+                    flashEncendido = true;
+                    if (vibradoActivado) v.vibrate((long) (400 / velocidad));
+                    if (sonidoActivado)
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, (int) (70 / velocidad));
+                } catch (CameraAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
             }
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
         }
+
     }
 
     private void inicializarCamaraYVibrador() {
