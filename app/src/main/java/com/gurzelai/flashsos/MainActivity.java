@@ -27,6 +27,9 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class MainActivity extends AppCompatActivity {
 
+    //anuncio test ca-app-pub-3940256099942544/6300978111
+    //anuncio real ca-app-pub-3237439786100647/8293315960
+
     boolean flashEncendido = false;
     boolean flashAccesible = false;
     boolean vibradoActivado;
