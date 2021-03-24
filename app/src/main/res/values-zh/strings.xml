@@ -2,7 +2,7 @@
 <resources>
     <string name="todo">TODO</string>
     <string name="loop">襻</string>
-    <string name="vibracion">VIBRACIÓN</string>
+    <string name="vibracion">振动</string>
     <string name="sonido">声音</string>
     <string name="app_name">SOS手电筒</string>
     <string name="mensaje_alerta">无法访问手电筒</string>
