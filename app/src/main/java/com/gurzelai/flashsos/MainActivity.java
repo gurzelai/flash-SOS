@@ -18,8 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     boolean vibradoActivado;
     boolean sonidoActivado;
     boolean volMax;
+    boolean btnSOSejecutando = false;
     private CameraManager mCameraManager;
     private String mCameraId;
     Vibrator v;
@@ -55,9 +54,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         inicializarCamaraYVibrador();
         botonPrincipal = findViewById(R.id.boton);
-        botonPrincipal.setOnClickListener((flashAccesible)? v -> flash():null);
+        botonPrincipal.setOnClickListener(v -> flash());
         FloatingActionButton btnTorchOn = findViewById(R.id.torchON);
-        btnTorchOn.setOnClickListener((flashAccesible)? v -> actualizarFlash():null);
+        btnTorchOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flashAccesible && !btnSOSejecutando) actualizarFlash();
+            }
+        });
         ads();
         loop = false;
         vibradoActivado = false;
@@ -143,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flash() {
-
+        if (flashAccesible) {
+            btnSOSejecutando = true;
             if (flashEncendido) actualizarFlash();
             String morse = "...---...";
             new Thread(new Runnable() {
@@ -168,8 +173,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     } while (loop);
                     botonPrincipal.setClickable(true);
+                    btnSOSejecutando = false;
                 }
             }).start();
+        }
 
     }
 
