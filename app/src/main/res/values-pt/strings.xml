@@ -5,6 +5,6 @@
     <string name="vibracion">" VIBRAÇÃO"</string>
     <string name="sonido">SOM</string>
     <string name="app_name">Lanterna SOS</string>
-    <string name="mensaje_alerta">A lanterna não pode ser acessada...</string>
+    <string name="mensaje_alerta">A lanterna não pode ser acessada…</string>
     <string name="titulo_alerta" translatable="false">Oops...</string>
 </resources>

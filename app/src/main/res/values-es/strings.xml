@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Linterna SOS</string>
+    <string name="todo">TODO</string>
+    <string name="loop">BUCLE</string>
+    <string name="vibracion">VIBRACIÓN</string>
+    <string name="sonido">SONIDO</string>
+    <string name="mensaje_alerta">No se puede acceder a la linterna…</string>
+    <string name="titulo_alerta">Oops…</string>
+</resources>
