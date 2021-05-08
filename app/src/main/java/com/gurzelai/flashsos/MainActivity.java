@@ -18,9 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -62,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 if (flashAccesible && !btnSOSejecutando) actualizarFlash();
             }
         });
-        ads();
         loop = false;
         vibradoActivado = false;
         sonidoActivado = false;
@@ -105,21 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void ads() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        banner();
-    }
-
-    private void banner() {
-       /* AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);*/
     }
 
     private void iniSwitchMaterial() {
